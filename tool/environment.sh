@@ -22,16 +22,30 @@
 
 # export CUDA_VISIBLE_DEVICES=2
 
-export TensorRT_Lib=/lib/aarch64-linux-gnu/
-export TensorRT_Inc=/usr/include/aarch64-linux-gnu/
+### Jetson Orin
+# export TensorRT_Lib=/lib/aarch64-linux-gnu/
+# export TensorRT_Inc=/usr/include/aarch64-linux-gnu/
+# export TensorRT_Bin=/usr/src/tensorrt/bin/
+
+# export CUDA_Lib=/usr/local/cuda-11.4/targets/aarch64-linux/lib/
+# export CUDA_Inc=/usr/local/cuda-11.4/targets/aarch64-linux/include/
+# export CUDA_Bin=/usr/local/cuda-11.4/bin/
+# export CUDA_HOME=/usr/local/cuda-11.4/
+
+# export CUDNN_Lib=/lib/aarch64-linux-gnu/
+
+### X86
+export TensorRT_Lib=/usr/lib/x86_64-linux-gnu
+export TensorRT_Inc=/usr/include/x86_64-linux-gnu
 export TensorRT_Bin=/usr/src/tensorrt/bin/
 
-export CUDA_Lib=/usr/local/cuda-11.4/targets/aarch64-linux/lib/
-export CUDA_Inc=/usr/local/cuda-11.4/targets/aarch64-linux/include/
+### X86
+export CUDA_Lib=/usr/local/cuda-11.4/targets/x86_64-linuxlib/
+export CUDA_Inc=/usr/local/cuda-11.4/targets/x86_64-linux/include/
 export CUDA_Bin=/usr/local/cuda-11.4/bin/
 export CUDA_HOME=/usr/local/cuda-11.4/
 
-export CUDNN_Lib=/lib/aarch64-linux-gnu/
+export CUDNN_Lib=/usr/lib/x86_64-linux-gnu
 
 # fp16/int8
 export DEBUG_PRECISION=fp16

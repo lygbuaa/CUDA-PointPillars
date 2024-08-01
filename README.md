@@ -43,7 +43,7 @@ sh tool/evaluate_kitti_val.sh
 ```shell
 sudo apt-get install git-lfs && git lfs install
 git clone https://github.com/NVIDIA-AI-IOT/CUDA-PointPillars.git
-cd CUDA-PointPillars && . tool/environment.sh
+cd CUDA-PointPillars && source tool/environment.sh
 mkdir build && cd build
 cmake .. && make -j$(nproc)
 cd ../ && sh tool/build_trt_engine.sh

@@ -13,11 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cmake_minimum_required(VERSION 2.8.7)
+cmake_minimum_required(VERSION 3.10.0)
 project(pointpillar)
 set(CMAKE_BUILD_PYTHON $ENV{USE_Python})
-set(CMAKE_BUILD_TYPE "Release")
-# set(CMAKE_BUILD_TYPE "Debug")
+# set(CMAKE_BUILD_TYPE "Release")
+set(CMAKE_BUILD_TYPE "Debug")
 set(arch ${CMAKE_HOST_SYSTEM_PROCESSOR})
 
 find_package(CUDA REQUIRED)
