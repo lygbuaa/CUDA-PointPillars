@@ -50,6 +50,14 @@ cd ../ && sh tool/build_trt_engine.sh
 cd build && ./pointpillar ../data/ ../data/ --timer
 ```
 
+## visualize
+1. refer to https://github.com/NVIDIA-AI-IOT/CUDA-PointPillars/pull/6, just `cd visualize && python viewer.py`
+2. to fix "cannot import name 'url_quote' from 'werkzeug.urls'", just `pip install --upgrade Flask`
+
+## input data params
+1. POINT_CLOUD_RANGE: [0, -40, -3, 70.4, 40, 1]
+2. CLASS_NAMES: ['Car', 'Pedestrian', 'Cyclist']
+
 ## FP16 Performance && Metrics
 
 Average perf in FP16 on the training set(7481 instances) of KITTI dataset.

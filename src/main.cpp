@@ -26,6 +26,22 @@
 #include "pointpillar.hpp"
 #include "common/check.hpp"
 
+#define LOGPF(format, ...) fprintf(stderr ,"[%s:%d] " format "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+
+typedef struct
+{
+    float x;
+    float y;
+    float z;
+    float intensity;
+}PointXYZI_t;
+
+typedef union 
+{
+    PointXYZI_t p;
+    uint8_t buf[sizeof(PointXYZI_t)];
+}PointXYZI_u;
+
 void GetDeviceInfo(void)
 {
   cudaDeviceProp prop;
@@ -101,6 +117,63 @@ int loadData(const char *file, void **data, unsigned int *length)
     dataFile.read(buffer, len);
     dataFile.close();
 
+/** check the input pcd files */
+#if 1
+    const uint32_t points_count = len / sizeof(PointXYZI_t);
+    const uint8_t* ptr_head = (uint8_t*)buffer;
+    float x_max = -1.0f*1e8;
+    float x_min = 1e8;
+    float y_max = -1.0f*1e8;
+    float y_min = 1e8;
+    float z_max = -1.0f*1e8;
+    float z_min = 1e8;
+    float i_max = -1.0f*1e8;
+    float i_min = 1e8;
+    for(uint32_t idx=0; idx<points_count; idx++)
+    {
+        PointXYZI_u pu;
+        const uint8_t* ptr = ptr_head + idx*sizeof(PointXYZI_t);
+        memcpy(pu.buf, ptr, sizeof(PointXYZI_t));
+        if(pu.p.x > x_max)
+        {
+            x_max = pu.p.x;
+        }
+        else if(pu.p.x < x_min)
+        {
+            x_min = pu.p.x;
+        }
+
+        if(pu.p.y > y_max)
+        {
+            y_max = pu.p.y;
+        }
+        else if(pu.p.y < y_min)
+        {
+            y_min = pu.p.y;
+        }
+
+        if(pu.p.z > z_max)
+        {
+            z_max = pu.p.z;
+        }
+        else if(pu.p.z < z_min)
+        {
+            z_min = pu.p.z;
+        }
+
+        if(pu.p.intensity > i_max)
+        {
+            i_max = pu.p.intensity;
+        }
+        else if(pu.p.intensity < i_min)
+        {
+            i_min = pu.p.intensity;
+        }
+    }
+
+    LOGPF("pcd file %s points_count: %d, x-range: (%.3f, %.3f), y-range: (%.3f, %.3f), z-range: (%.3f, %.3f), i-range: (%.3f, %.3f)", \
+        file, points_count, x_min, x_max, y_min, y_max, z_min, z_max, i_min, i_max);
+#endif
     *data = (void*)buffer;
     *length = len;
     return 0;  
